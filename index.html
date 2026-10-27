@@ -22,7 +22,6 @@
     --paper: #fff;
     --size: 20px;
     --lh: 28px;
-    --section-gap: clamp(400px, calc(400px + 13.5vw), 590px);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,16 +39,21 @@
     padding: 0 32px;
   }
 
-  /* hero */
-  .hero {
+  /* each section is one full-screen page that the scroll snaps to */
+  html { scroll-snap-type: y mandatory; }
+  .page {
     min-height: 100vh;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     padding: 64px 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
+
+  /* hero */
+  .hero { align-items: center; }
   .hero .logo { display: block; width: 178px; height: auto; }
   .hero h1 {
     font-weight: 400;
@@ -62,8 +66,6 @@
   /* copy sections */
   .copy { max-width: 760px; margin: 0 auto; }
   .copy p + p { margin-top: var(--lh); }
-  .about { padding-top: calc(var(--section-gap) - 346px); }
-  .contact { padding-top: calc(var(--section-gap) - 8px); padding-bottom: 349px; }
 
   .stars {
     display: inline-flex;
@@ -82,12 +84,10 @@
   a:hover { text-decoration-thickness: 2px; }
 
   @media (max-width: 767px) {
-    :root { --size: 16px; --lh: 23px; --section-gap: 140px; }
+    :root { --size: 16px; --lh: 23px; }
     .br-d { display: none; }
     .br-m { display: inline; }
     .hero .tagline { margin-top: 118px; }
-    .about { padding-top: 60px; }
-    .contact { padding-bottom: 140px; }
     .quotes { margin-top: var(--lh) !important; }
     .quotes span { display: block; }
     .quotes span + span { margin-left: 0; }
@@ -97,13 +97,13 @@
 </head>
 <body>
   <main>
-    <header class="hero">
+    <header class="page hero">
       <img class="logo" src="assets/logo.svg" width="178" height="194" alt="adder logo: a snake coiled around a heart with a cross">
       <h1>adder</h1>
       <p class="tagline">uncoiling soon</p>
     </header>
 
-    <section class="copy about">
+    <section class="page copy about">
       <p>Forget <span class="stars" role="img" aria-label="five stars"><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""></span> on<br class="br-m"> Google from strangers.</p>
       <p>adder is the good stuff, handed to you by people you actually trust:<br class="br-d">
         the doctor who called you on a Friday night with your results,<br class="br-d">
@@ -115,7 +115,7 @@
       <p class="quotes"><span>“No stars.”</span> <span>“No algorithm”</span> <span>“No strangers.”</span></p>
     </section>
 
-    <section class="copy contact">
+    <section class="page copy contact">
       <p>Want in on the first nest?</p>
       <p>We are starting small, with friends of friends.<br class="br-d">
         Write to us and we will let you know when there is room.</p>
