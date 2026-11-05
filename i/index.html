@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>adder · a place saved for you</title>
+<meta name="description" content="A small private app where friends share the care they trust.">
+<meta property="og:title" content="adder · a place saved for you">
+<meta property="og:description" content="A small private app where friends share the care they trust.">
+<meta property="og:image" content="https://adder.care/assets/og-adder.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/FluxischElse-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face {
+    font-family: "Fluxisch Else";
+    src: url("/fonts/FluxischElse-Regular.woff2") format("woff2"), url("/fonts/FluxischElse-Regular.woff") format("woff");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  :root { --pink: #FF96C7; --grey: #e9e9eb; --soft: #787878; --line: #000; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    color: #000; font-family: "Fluxisch Else", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%;
+    min-height: 100svh; display: flex; flex-direction: column; align-items: center;
+    padding: 40px 28px 28px; text-align: center;
+  }
+  main { width: 100%; max-width: 380px; flex: 1; display: flex; flex-direction: column; }
+  .logo { width: 120px; height: auto; display: block; margin: 0 auto; }
+  h1 { font-weight: 400; font-size: 34px; line-height: 1; margin-top: 16px; }
+  .lead { font-size: 17px; line-height: 24px; margin: 22px 0 28px; }
+  .steps { border-top: 1px solid var(--line); }
+  .step { display: flex; gap: 18px; text-align: left; padding: 18px 0 20px; border-bottom: 1px solid var(--line); }
+  .n { flex: none; width: 28px; height: 28px; margin-top: 4px; border-radius: 50%; border: 1px solid #000; font-size: 15px; line-height: 27px; text-align: center; }
+  .body { min-width: 0; }
+  .t { font-size: 15px; line-height: 21px; margin-top: 12px; }
+  .btn { display: inline-block; background: var(--pink); border-radius: 40px; padding: 0 18px; height: 36px; line-height: 35px; font-size: 18px; color: #000; text-decoration: none; }
+  .btn:active, .chip:active { opacity: .7; }
+  .label { font-size: 13px; margin-top: 16px; }
+  .chip { display: inline-block; margin-top: 8px; background: var(--grey); border: 0; border-radius: 40px; padding: 0 18px; height: 36px; line-height: 35px; font: inherit; font-size: 18px; color: #000; cursor: pointer; }
+  .chip:focus-visible, .btn:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+  .center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  .center .lead { margin-bottom: 28px; }
+  footer { margin-top: 32px; font-size: 13px; color: var(--soft); display: flex; gap: 24px; justify-content: center; }
+  footer a { color: #000; text-underline-offset: 4px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <!-- iPhone: three steps -->
+  <section id="iphone" hidden>
+    <img class="logo" src="/assets/logo.svg" alt="adder logo">
+    <h1>adder</h1>
+    <p class="lead">A friend saved you a place.<br>Three taps and you’re in.</p>
+
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="body">
+        <a class="btn" href="https://apps.apple.com/app/testflight/id899247664">Get TestFlight</a>
+        <p class="t">Apple’s app for trying apps before they’re in the App Store.</p>
+      </div></div>
+
+      <div class="step"><div class="n">2</div><div class="body">
+        <a class="btn" id="get-adder" href="#">Get adder</a>
+        <p class="t">Opens adder in TestFlight.<br>Tap Accept, then Install.</p>
+      </div></div>
+
+      <div class="step"><div class="n">3</div><div class="body">
+        <a class="btn" id="open-adder" href="adderapp://login?invite=1">Come in</a>
+        <p class="t">Your friend’s code is already filled in.<br>Type your email and you’re in.</p>
+        <div data-code-line>
+          <p class="label">Your friend’s code:</p>
+          <button type="button" class="chip" data-code aria-label="Copy your friend’s code"></button>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Android, computer: explain, keep the code -->
+  <section id="elsewhere" class="center" hidden>
+    <img class="logo" src="/assets/logo.svg" alt="adder logo">
+    <h1>adder</h1>
+    <p class="lead">A friend saved you a place.<br><br>adder lives on iPhone for now.<br>Open this link on your iPhone,<br>or keep it for later.</p>
+    <div data-code-line>
+      <p class="label">Your friend’s code:</p>
+      <button type="button" class="chip" data-code aria-label="Copy your friend’s code"></button>
+    </div>
+  </section>
+</main>
+<footer><span id="iphone-only" hidden>iPhone only for now</span><a href="/privacy/">privacy</a></footer>
+
+<script>
+  // The public TestFlight link of the "First nest" group.
+  var TESTFLIGHT = 'https://testflight.apple.com/join/hrypBEwX';
+
+  // adder.care/i/cobra-08 → "cobra-08" (snake + two digits). Anything else: no code shown.
+  var m = location.pathname.match(/\/i\/([a-z]+-?\d{2})\/?$/i);
+  var code = m ? m[1].toLowerCase().replace(/^([a-z]+)-?(\d{2})$/, '$1-$2') : '';
+
+  var ua = navigator.userAgent;
+  var isIphone = /iPhone|iPod/.test(ua);
+
+  document.getElementById(isIphone ? 'iphone' : 'elsewhere').hidden = false;
+  document.getElementById('iphone-only').hidden = !isIphone;
+  document.getElementById('get-adder').href = TESTFLIGHT;
+  document.getElementById('open-adder').href = 'adderapp://login?invite=1' + (code ? '&code=' + encodeURIComponent(code) : '');
+  if (!code) document.querySelectorAll('[data-code-line]').forEach(function (el) { el.hidden = true; });
+
+  // Tap the grey code to copy it.
+  document.querySelectorAll('[data-code]').forEach(function (el) {
+    el.textContent = code;
+    el.addEventListener('click', function () {
+      var done = function () { el.textContent = 'Copied'; setTimeout(function () { el.textContent = code; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(done, function () { fallback(); done(); });
+      } else { fallback(); done(); }
+    });
+  });
+  function fallback() {
+    var t = document.createElement('textarea'); t.value = code; t.setAttribute('readonly', '');
+    t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select();
+    try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(t);
+  }
+</script>
+</body>
+</html>
