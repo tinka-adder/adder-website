@@ -33,6 +33,9 @@
   .logo { width: 120px; height: auto; display: block; margin: 0 auto; }
   h1 { font-weight: 400; font-size: 34px; line-height: 1; margin-top: 16px; }
   .lead { font-size: 17px; line-height: 24px; margin: 22px 0 28px; }
+  .lead + .test { margin-top: -10px; }
+  .test { font-size: 14px; line-height: 20px; color: var(--soft); margin: 0 auto 28px; max-width: 320px; }
+  .center .test + .lead { margin-top: 0; }
   .steps { border-top: 1px solid var(--line); }
   .step { display: flex; gap: 18px; text-align: left; padding: 18px 0 20px; border-bottom: 1px solid var(--line); }
   .n { flex: none; width: 28px; height: 28px; margin-top: 4px; border-radius: 50%; border: 1px solid #000; font-size: 15px; line-height: 27px; text-align: center; }
@@ -57,6 +60,7 @@
     <img class="logo" src="/assets/logo.svg" alt="adder logo">
     <h1>adder</h1>
     <p class="lead">A friend saved you a place.<br>Three taps and you’re in.</p>
+    <p class="test">adder is still a test version.<br>You’re one of the first to be invited.<br>In a few weeks we’d love to hear what you think.</p>
 
     <div class="steps">
       <div class="step"><div class="n">1</div><div class="body">
@@ -84,7 +88,9 @@
   <section id="elsewhere" class="center" hidden>
     <img class="logo" src="/assets/logo.svg" alt="adder logo">
     <h1>adder</h1>
-    <p class="lead">A friend saved you a place.<br><br>adder lives on iPhone for now.<br>Open this link on your iPhone,<br>or keep it for later.</p>
+    <p class="lead">A friend saved you a place.</p>
+    <p class="test">adder is still a test version.<br>You’re one of the first to be invited.<br>In a few weeks we’d love to hear what you think.</p>
+    <p class="lead">adder lives on iPhone for now.<br>Open this link on your iPhone,<br>or keep it for later.</p>
     <div data-code-line>
       <p class="label">Your friend’s code:</p>
       <button type="button" class="chip" data-code aria-label="Copy your friend’s code"></button>
