@@ -103,9 +103,9 @@
   // The public TestFlight link of the "First nest" group.
   var TESTFLIGHT = 'https://testflight.apple.com/join/hrypBEwX';
 
-  // adder.care/i/cobra-08 → "cobra-08" (snake + two digits). Anything else: no code shown.
-  var m = location.pathname.match(/\/i\/([a-z]+-?\d{2})\/?$/i);
-  var code = m ? m[1].toLowerCase().replace(/^([a-z]+)-?(\d{2})$/, '$1-$2') : '';
+  // adder.care/i/cobra-0842 → "cobra-0842" (snake + four digits; older codes had two). Anything else: no code shown.
+  var m = location.pathname.match(/\/i\/([a-z]+-?\d{2,4})\/?$/i);
+  var code = m ? m[1].toLowerCase().replace(/^([a-z]+)-?(\d{2,4})$/, '$1-$2') : '';
 
   var ua = navigator.userAgent;
   var isIphone = /iPhone|iPod/.test(ua);
